@@ -6,6 +6,8 @@ The most adorable way to ask someone to be your Valentine! 🌹
 
 This is a super cute web application that helps you pop the Valentine's question in the most irresistible way possible! Built with love (and Go) 💖, this app creates an interactive experience that makes saying "Yes" impossible to resist!
 
+![Screenshot](./assets/screenshots/screenshot_1.jpg)
+
 ## Features ✨
 
 - 🎯 Simple and adorable UI
@@ -24,13 +26,15 @@ This is a super cute web application that helps you pop the Valentine's question
 ## Running Locally 🏃‍♂️
 
 1. Clone this repository 📦
-2. Make sure you have Go installed 🐹
-3. Run the following commands:
+2. Run the following commands:
 
 ```bash
-make build
-make run
+make all    # Cleans previous builds and creates binaries for Linux and Windows
+make build  # Creates binaries for Linux and Windows
+make run    # Runs the app locally without creating binaries
 ```
+
+> All binaries will be created in the `/bin` directory.
 
 The app will automatically open in your default browser at `http://localhost:14334` 🌐
 
