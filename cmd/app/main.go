@@ -19,7 +19,7 @@ type ShutdownRequest struct {
 }
 
 func main() {
-	port := "8080"
+	port := "14334"
 	url := fmt.Sprintf("http://localhost:%s", port)
 
 	// Create a channel to signal when the server is ready
