@@ -1,0 +1,147 @@
+:root {
+    --primary-color: #ff69b4;
+    --secondary-color: #ff1493;
+    --background-color: #fff5f7;
+    --text-color: #333;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--background-color);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--text-color);
+}
+
+.container {
+    text-align: center;
+    padding: 2rem;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    width: 90%;
+}
+
+h1 {
+    color: var(--primary-color);
+    margin-bottom: 2rem;
+    font-size: 2.5rem;
+}
+
+.gif-container {
+    margin: 2rem 0;
+}
+
+.flowers-gif,
+.happy-gif {
+    max-width: 300px;
+    border-radius: 10px;
+}
+
+.buttons-container {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.btn {
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    font-weight: bold;
+}
+
+.yes-btn {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.yes-btn:hover {
+    background-color: var(--secondary-color);
+    transform: scale(1.1);
+}
+
+.no-btn {
+    background-color: #e0e0e0;
+    color: var(--text-color);
+    position: relative;
+}
+
+.response {
+    margin-top: 2rem;
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    min-height: 2rem;
+}
+
+.countdown {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    font-size: 0.75rem;
+    color: rgba(102, 102, 102, 0.9);
+    font-weight: 400;
+    background-color: rgba(255, 255, 255, 0.6);
+    padding: 0.35rem 0.8rem;
+    border-radius: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.control-buttons {
+    position: fixed;
+    bottom: 2.8rem;
+    right: 1rem;
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    z-index: 1000;
+}
+
+.control-btn {
+    padding: 0.3rem 0.8rem;
+    font-size: 0.7rem;
+    background-color: rgba(74, 144, 226, 0.6);
+    color: white;
+    border-radius: 20px;
+    white-space: nowrap;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: all 0.2s ease;
+}
+
+.control-btn:hover {
+    background-color: rgba(53, 122, 189, 0.8);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.shutdown-btn {
+    background-color: rgba(231, 76, 60, 0.6);
+    font-size: 0.7rem;
+}
+
+.shutdown-btn:hover {
+    background-color: rgba(192, 57, 43, 0.8);
+}
