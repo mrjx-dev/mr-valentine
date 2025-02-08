@@ -11,6 +11,10 @@ all: clean frontend build
 
 build: build-linux build-windows
 
+format:
+	@echo "Formatting..."
+	@go fmt ./...
+
 build-linux:
 	@echo "Building for Linux..."
 	@GOOS=linux GOARCH=amd64 go build -o $(BUILD_DIR)/linux/$(BINARY_NAME_LINUX) ./cmd/app
