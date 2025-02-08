@@ -19,24 +19,44 @@ This is a super cute web application that helps you pop the Valentine's question
 ## Tech Stack 🛠️
 
 - 🚀 Backend: Go (with Chi router)
-- 💅 Frontend: HTML, CSS, JavaScript
+- 💅 Frontend: HTML, CSS, TypeScript
 - 🎨 UI: Pure CSS animations
 - 🖼️ Assets: Cute GIFs and images
+- 📦 Build Tools: TypeScript compiler, Make, Air (Go hot reload)
+
+## Prerequisites for development 📋
+
+- Go 1.23.6 or higher
+- Node.js and npm (for TypeScript compilation)
+- Air will be automatically installed via make commands
 
 ## Running Locally 🏃‍♂️
 
 1. Clone this repository 📦
-2. Run the following commands:
+2. Choose your preferred way to run:
 
 ```bash
-make all    # Cleans previous builds and creates binaries for Linux and Windows
-make build  # Creates binaries for Linux and Windows
-make run    # Runs the app locally without creating binaries
+make install-tools  # Install all development tools (Air, TypeScript, etc.)
+make all           # Clean, build frontend assets, and create binaries for Linux and Windows
+make build         # Create binaries for Linux and Windows
+make run           # Build frontend assets and run the app locally
+make dev           # Run in development mode with hot-reloading (both TypeScript and Go)
 ```
 
 > All binaries will be created in the `/bin` directory.
+> TypeScript compiled files will be in `/ui/static/scripts/dist`.
 
 The app will automatically open in your default browser at `http://localhost:14334` 🌐
+
+## Development 🛠️
+
+- Use `make dev` to start the development server with:
+  - 🔄 Go hot-reloading via Air (automatically recompiles and restarts on Go file changes)
+  - 📝 TypeScript watch mode (automatically recompiles on TypeScript file changes)
+  - 🚀 All changes are reflected immediately without manual restart
+- The TypeScript source files are located in `/ui/static/scripts`
+- Frontend assets are automatically compiled before the server starts
+- Air configuration is in `.air.toml`
 
 ## Contributing 💕
 

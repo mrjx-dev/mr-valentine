@@ -1,0 +1,27 @@
+{
+    "name": "mr-valentine",
+    "version": "1.0.0",
+    "description": "The most adorable way to ask someone to be your Valentine! 🌹",
+    "main": "index.js",
+    "scripts": {
+        "build": "tsc",
+        "watch": "tsc --watch",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/mrjx-dev/mr-valentine.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "type": "commonjs",
+    "bugs": {
+        "url": "https://github.com/mrjx-dev/mr-valentine/issues"
+    },
+    "homepage": "https://github.com/mrjx-dev/mr-valentine#readme",
+    "devDependencies": {
+        "@types/node": "^20.11.17",
+        "typescript": "^5.3.3"
+    }
+}

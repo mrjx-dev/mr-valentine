@@ -1,18 +1,30 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const noBtn = document.getElementById("noBtn");
-    const yesBtn = document.getElementById("yesBtn");
-    const response = document.getElementById("response");
-    const container = document.querySelector(".container");
-    const buttonsContainer = document.querySelector(".buttons-container");
-    let countdownInterval = null;
-    let isFirstHover = true;
-    let originalNoBtnParent = noBtn.parentElement;
-    let originalNoBtnNextSibling = noBtn.nextElementSibling;
+interface Position {
+    x: number;
+    y: number;
+}
+
+interface HTMLElementWithStyle extends HTMLElement {
+    style: CSSStyleDeclaration;
+}
+
+document.addEventListener("DOMContentLoaded", (): void => {
+    const noBtn = document.getElementById("noBtn") as HTMLButtonElement;
+    const yesBtn = document.getElementById("yesBtn") as HTMLButtonElement;
+    const response = document.getElementById("response") as HTMLDivElement;
+    const container = document.querySelector(".container") as HTMLDivElement;
+    const buttonsContainer = document.querySelector(
+        ".buttons-container"
+    ) as HTMLDivElement;
+
+    let countdownInterval: number | null = null;
+    let isFirstHover: boolean = true;
+    const originalNoBtnParent: HTMLElement | null = noBtn.parentElement;
+    const originalNoBtnNextSibling: Element | null = noBtn.nextElementSibling;
 
     // Function to get random position within the viewport
-    const getRandomPosition = () => {
-        const viewportWidth = window.innerWidth - noBtn.offsetWidth;
-        const viewportHeight = window.innerHeight - noBtn.offsetHeight;
+    const getRandomPosition = (): Position => {
+        const viewportWidth: number = window.innerWidth - noBtn.offsetWidth;
+        const viewportHeight: number = window.innerHeight - noBtn.offsetHeight;
 
         return {
             x: Math.max(0, Math.floor(Math.random() * viewportWidth)),
@@ -21,8 +33,8 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     // Function to create placeholder text
-    const createPlaceholder = () => {
-        const placeholder = document.createElement("div");
+    const createPlaceholder = (): void => {
+        const placeholder: HTMLDivElement = document.createElement("div");
         placeholder.textContent = "Please don't click No 💔";
         placeholder.className = "no-placeholder";
         placeholder.style.fontSize = "1rem";
@@ -37,8 +49,8 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     // Function to move the No button
-    const moveNoButton = () => {
-        const newPos = getRandomPosition();
+    const moveNoButton = (): void => {
+        const newPos: Position = getRandomPosition();
         noBtn.style.position = "fixed";
         noBtn.style.left = `${newPos.x}px`;
         noBtn.style.top = `${newPos.y}px`;
@@ -46,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     // Add one-time hover event to container
-    container.addEventListener("mouseenter", function triggerFirstMove() {
+    const triggerFirstMove = function (): void {
         if (isFirstHover) {
             createPlaceholder();
             document.body.appendChild(noBtn); // Move to body for absolute positioning
@@ -59,38 +71,43 @@ document.addEventListener("DOMContentLoaded", () => {
             // Add mouseover event to the No button for subsequent moves
             noBtn.addEventListener("mouseover", moveNoButton);
         }
-    });
+    };
+
+    container.addEventListener("mouseenter", triggerFirstMove);
 
     // Function to stop countdown and cancel shutdown
-    const stopCountdown = () => {
+    const stopCountdown = (): void => {
         if (countdownInterval) {
             clearInterval(countdownInterval);
             countdownInterval = null;
             fetch("/cancel-shutdown", {
                 method: "POST",
-            }).catch((err) => console.log("Error canceling shutdown:", err));
+            }).catch((err: Error) =>
+                console.log("Error canceling shutdown:", err)
+            );
         }
     };
 
     // Function to start countdown
-    const startCountdown = () => {
-        let secondsLeft = 30;
-        const countdownEl = document.getElementById("countdown");
+    const startCountdown = (): void => {
+        let secondsLeft: number = 30;
+        const countdownEl: HTMLElement | null =
+            document.getElementById("countdown");
 
-        countdownInterval = setInterval(() => {
+        countdownInterval = window.setInterval(() => {
             secondsLeft--;
             if (countdownEl) {
                 countdownEl.textContent = `Closing in ${secondsLeft} seconds`;
             }
             if (secondsLeft <= 0) {
-                clearInterval(countdownInterval);
+                if (countdownInterval) clearInterval(countdownInterval);
                 window.close();
             }
         }, 1000);
     };
 
     // Function to trigger manual shutdown
-    const triggerManualShutdown = () => {
+    const triggerManualShutdown = (): void => {
         fetch("/trigger-shutdown", {
             method: "POST",
             headers: {
@@ -99,16 +116,15 @@ document.addEventListener("DOMContentLoaded", () => {
             body: JSON.stringify({ immediate: true }),
         })
             .then(() => {
-                // Close the current tab
                 window.close();
             })
-            .catch((err) =>
+            .catch((err: Error) =>
                 console.log("Error triggering manual shutdown:", err)
             );
     };
 
     // Handle "Yes" button click
-    yesBtn.addEventListener("click", () => {
+    yesBtn.addEventListener("click", (): void => {
         // Remove the No button if it's in the document body
         if (noBtn.parentElement === document.body) {
             document.body.removeChild(noBtn);
@@ -123,7 +139,7 @@ document.addEventListener("DOMContentLoaded", () => {
         `;
 
         // Add controls outside the main container
-        const controls = document.createElement("div");
+        const controls: HTMLDivElement = document.createElement("div");
         controls.innerHTML = `
             <div id="countdown" class="countdown">Closing in 30 seconds</div>
             <div class="control-buttons">
@@ -134,8 +150,8 @@ document.addEventListener("DOMContentLoaded", () => {
         document.body.appendChild(controls);
 
         // Make functions available globally
-        window.stopCountdown = stopCountdown;
-        window.triggerManualShutdown = triggerManualShutdown;
+        (window as any).stopCountdown = stopCountdown;
+        (window as any).triggerManualShutdown = triggerManualShutdown;
 
         // Start countdown and trigger shutdown
         startCountdown();
@@ -145,6 +161,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({ immediate: false }),
-        }).catch((err) => console.log("Error triggering shutdown:", err));
+        }).catch((err: Error) =>
+            console.log("Error triggering shutdown:", err)
+        );
     });
 });
