@@ -5,6 +5,11 @@ BINARY_NAME_WINDOWS=mr-valentine.exe
 # Build directory
 BUILD_DIR=bin
 
+# Check for required commands
+REQUIRED_EXECUTABLES = go npm
+K := $(foreach exec,$(REQUIRED_EXECUTABLES),\
+        $(if $(shell which $(exec)),some string,$(error "$(exec) not found in PATH. Please install $(exec)")))
+
 .PHONY: all build build-linux build-windows clean frontend run dev install-tools
 
 all: clean frontend build
@@ -38,8 +43,11 @@ run: frontend
 	@go run ./cmd/app 
 
 install-tools:
+	@echo "Checking prerequisites..."
+	@which go >/dev/null || (echo "Error: Go is not installed. Please install Go first: https://golang.org/doc/install" && exit 1)
+	@which npm >/dev/null || (echo "Error: npm is not installed. Please install Node.js and npm first: https://nodejs.org/" && exit 1)
 	@echo "Installing development tools..."
-	@go install github.com/cosmtrek/air@latest
+	@go install github.com/air-verse/air@latest
 	@npm install
 
 dev: install-tools
