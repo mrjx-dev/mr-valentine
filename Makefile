@@ -7,7 +7,7 @@ BUILD_DIR=bin
 
 REQUIRED_EXECUTABLES := go npm
 $(foreach exec,$(REQUIRED_EXECUTABLES),\
-    $(if $(shell which $(exec)),,$(error "$(exec) not found in PATH. Please install $(exec)")))
+    $(if $(shell which $(exec)),,$(error "$(exec) not found in PATH. Please install $(exec): $(if $(filter go,$(exec)),https://golang.org/doc/install,https://nodejs.org/)")))
 
 .PHONY: all build build-linux build-windows clean frontend run dev install-tools
 
