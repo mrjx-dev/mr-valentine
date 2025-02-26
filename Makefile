@@ -5,10 +5,9 @@ BINARY_NAME_WINDOWS=mr-valentine.exe
 # Build directory
 BUILD_DIR=bin
 
-# Check for required commands
-REQUIRED_EXECUTABLES = go npm
-K := $(foreach exec,$(REQUIRED_EXECUTABLES),\
-        $(if $(shell which $(exec)),some string,$(error "$(exec) not found in PATH. Please install $(exec)")))
+REQUIRED_EXECUTABLES := go npm
+$(foreach exec,$(REQUIRED_EXECUTABLES),\
+    $(if $(shell which $(exec)),,$(error "$(exec) not found in PATH. Please install $(exec)")))
 
 .PHONY: all build build-linux build-windows clean frontend run dev install-tools
 
